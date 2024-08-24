@@ -15,12 +15,12 @@ export const Home = () => {
 		<div className="text-center mt-5">
 			<div className="container">
 
-				{store.contactList.map((item, index) => {
+				{store.contactList.map((item, _index) => {
 					return (
 						<Contacts
 						
 							key={item.id}
-							fullname = {item.name}
+							fullName = {item.name}
 							phone = {item.phone}
 							email = {item.email}
 							address = {item.address}
@@ -29,12 +29,6 @@ export const Home = () => {
 					)
 				})}
 			</div> 
-			<div> 
-				Editar
 			</div>
-			<div>
-				Borrar
-			</div>
-		</div>
 	)
 };

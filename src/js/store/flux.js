@@ -1,3 +1,5 @@
+import NewContact from "../views/addNewContact";
+
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
@@ -33,6 +35,20 @@ const getState = ({ getStore, getActions, setStore }) => {
 				setStore({
 					contactList: data.contacts
 				})
+			},
+
+			newContact: async (contact) => {
+				
+				const response = await fetch("https://playground.4geeks.com/contact/agendas/agendaAdriana/contacts",{
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json'
+					  },
+					body: JSON.stringify(contact)
+				}) 
+				
+				const data = await response.json()
+				getActions().loadContacts()
 			},
 
 			loadSomeData: () => {
