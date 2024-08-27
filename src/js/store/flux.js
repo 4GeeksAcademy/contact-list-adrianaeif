@@ -51,6 +51,18 @@ const getState = ({ getStore, getActions, setStore }) => {
 				getActions().loadContacts()
 			},
 
+			deleteContact: async (id) => {
+				try {
+					await fetch(`https://playground.4geeks.com/contact/agendas/agendaAdriana/contacts/${id}`, {
+						method: 'DELETE',
+					})
+					getActions().loadContacts()
+				} catch (error) {
+					console.log(error)
+					alert("Error al borrar contacto")
+				}
+			}, 
+
 			loadSomeData: () => {
 				/**
 					fetch().then().then(data => setStore({ "foo": data.bar }))

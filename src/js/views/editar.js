@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from "react";
 import { Context } from "../store/appContext";
 
-const NewContact= () => {
+const EditContact= () => {
 
     const { actions } = useContext(Context);
 
@@ -13,10 +13,11 @@ const NewContact= () => {
         address:"",   
     })
 
+
     return (
         <div className="container justify-content-center">
 
-            <h1 className="text-center">Add a new contact</h1>
+            <h1 className="text-center">Edit contact</h1>
             
             <div className="mb-3">
                 <label htmlFor="" className="fw-bold form-label">Full Name</label>
@@ -67,4 +68,4 @@ const NewContact= () => {
 
 }
 
-export default NewContact;
+export default EditContact;
