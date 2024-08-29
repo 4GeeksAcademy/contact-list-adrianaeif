@@ -1,7 +1,18 @@
-import React from "react";
+import React, { useContext, useState } from "react";
+import { Context } from "../store/appContext";
 import { Link } from "react-router-dom";
 
-const Contacts = ({fullName, address, phone, email}) => {
+
+const Contacts = ({fullName, address, phone, email, id}) => {
+
+    const {actions} = useContext(Context);
+    
+
+    const Delete = () => {
+        actions.deleteContact(id);
+    };
+
+  
 
     return (
         <div className="container border d-flex justify-content-center p-2">
@@ -17,13 +28,14 @@ const Contacts = ({fullName, address, phone, email}) => {
                 <div className="text-secondary"><i className="fa-solid fa-location-dot me-2"></i>{address}</div>
             </div>
             <div className="col-1 d-flex m-3 justify-content-end pe-0">
-                {/* <Link to='/edit-contact/' + id> */}
+            <Link to={`/edit-contact/` + id}>
                 <i className="fa-solid fa-pencil me-0"></i> 
-                {/* </Link> */}
+                </Link>
                 
             </div>
             <div className="col-1 d-flex m-3 justify-content-start ps-0">
-            <span className="fas fa-trash-alt"></span>
+            <span onClick={()=> {Delete(id)}} className="fas fa-trash-alt"></span>
+            
             </div>
         </div>
     )

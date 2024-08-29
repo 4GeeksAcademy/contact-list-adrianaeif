@@ -59,9 +59,25 @@ const getState = ({ getStore, getActions, setStore }) => {
 					getActions().loadContacts()
 				} catch (error) {
 					console.log(error)
-					alert("Error al borrar contacto")
+					alert("Error")
 				}
 			}, 
+
+			updateContact: async (contact) => {
+				try{
+					const response = await fetch("https://playground.4geeks.com/contact/agendas/agendaAdriana/contacts/" + contact.id,{
+						method: "PUT",
+						headers: {
+							"Content-Type": "application/json"
+						},
+						body: JSON.stringify(contact)
+					})
+					getActions().loadContacts();
+				}
+				catch (error) {
+					console.log(error)
+				}
+			},
 
 			loadSomeData: () => {
 				/**

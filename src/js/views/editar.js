@@ -1,68 +1,97 @@
 import React, { useState, useContext, useEffect } from "react";
 import { Context } from "../store/appContext";
+import { Link, useParams } from "react-router-dom";
 
 const EditContact= () => {
 
-    const { actions } = useContext(Context);
+    const { actions, store } = useContext(Context);
 
 
-    const [contact, setContact] = useState ({
-        name:"",
-        email:"",
-        phone:"",
-        address:"",   
+    const [newContact,setNewContact] = useState({
+        name: "",
+        phone: "",
+        email: "",
+        address: "",
+        id: 0
     })
+
+    const {id} = useParams();
+
+    const handleInputChange = (e) => {
+        const {name,value} = e.target;
+        setNewContact({
+            ...newContact,
+            [name]:value
+        })
+    }
+
+    const handleSubmit = () => {
+        actions.updateContact(newContact);
+        navigate("/")
+    }
+
+    useEffect(() => { 
+        if (id){
+            const searchContact = store.contactList.find( item => item.id == id)
+            if (searchContact){
+                setNewContact({...newContact,
+                    name: searchContact.name, 
+                    phone: searchContact.phone, 
+                    email: searchContact.email,
+                    address: searchContact.address,
+                    id: searchContact.id
+                })
+            }
+        }
+    }, []);
+
 
 
     return (
-        <div className="container justify-content-center">
+        <div className="container justify-content-center ">
 
-            <h1 className="text-center">Edit contact</h1>
-            
-            <div className="mb-3">
-                <label htmlFor="" className="fw-bold form-label">Full Name</label>
-                <input type="text" className="form-control" value={contact.name} 
-                onChange={
-                    (event) => setContact({
-                        ...contact,
-                        name: event.target.value
-                    })
-                }/>
-            </div>
-            <div className="mb-3">
-                <label htmlFor="" className="fw-bold form-label">Email</label>
-                <input type="text" className="form-control" vale={contact.email}
-                 onChange={
-                    (event) => setContact({
-                        ...contact,
-                        email: event.target.value
-                    })
-                }/>
-            </div>
-            <div className=" mb-3">
-                <label htmlFor="" className="fw-bold form-label">Phone</label>
-                <input type="text" className="form-control" value={contact.phone}
-                 onChange={
-                    (event) => setContact({
-                        ...contact,
-                        phone: event.target.value
-                    })
-                }/>
-            </div>
-            <div className=" mb-3">
-                <label htmlFor="" className="fw-bold form-label">Address</label>
-                <input type="text" className="form-control" value={contact.address}
-                 onChange={
-                    (event) => setContact({
-                        ...contact,
-                        address: event.target.value
-                    })
-                }/>
-            </div>
-            <button type="submit" className="mb-3 btn btn-primary w-100" onClick={()=>actions.newContact(contact)}>Save</button>
-            
-                
+        <h1 className="text-center mb-3">Edit your contact</h1>
+
+        <div className="d-flex flex-column input-group mb-3 ">
+            <strong><p className="mb-1">Full Name</p></strong>
+            <input type="text" className="form-control w-100" placeholder="Full Name" name="name" 
+            onChange={handleInputChange}
+            value={newContact.name}
+            />
         </div>
+
+        <div className="d-flex flex-column input-group mb-3 ">
+            <strong><p className="mb-1">Email</p></strong>
+            <input type="text" className="form-control w-100" placeholder="Enter email" name="email"
+            onChange={handleInputChange}
+            value={newContact.email}
+            />
+        </div>
+
+        <div className="d-flex flex-column input-group mb-3 ">
+            <strong><p className="mb-1">Phone</p></strong>
+            <input type="text" className="form-control w-100" placeholder="Enter phone" name="phone"
+            onChange={handleInputChange}
+            value={newContact.phone}
+            />
+        </div>
+
+        <div className="d-flex flex-column input-group mb-3 ">
+            <strong><p className="mb-1">Address</p></strong>
+            <input type="text" className="form-control w-100" placeholder="Enter address" name="address"
+            onChange={handleInputChange}
+            value={newContact.address}
+            />
+        </div>
+
+        <button className="btn btn-primary w-100" onClick={handleSubmit}>
+            Save
+        </button>
+
+        <Link to="/">
+            <p className="mb-0">or get back to contacts</p>
+        </Link>
+    </div>
         
     );
 

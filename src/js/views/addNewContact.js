@@ -59,7 +59,9 @@ const NewContact= () => {
                 }/>
             </div>
             <button type="submit" className="mb-3 btn btn-primary w-100" onClick={()=>actions.newContact(contact)}>Save</button>
-            
+            <a href="/">
+				<p className="mb-0">or get back to contacts</p>
+			</a>
                 
         </div>
         

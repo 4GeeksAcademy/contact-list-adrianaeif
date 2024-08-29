@@ -24,6 +24,7 @@ export const Home = () => {
 							phone = {item.phone}
 							email = {item.email}
 							address = {item.address}
+							id = {item.id}
 
 						/>
 					)
