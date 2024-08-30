@@ -30,6 +30,7 @@ const EditContact= () => {
         navigate("/")
     }
 
+    // Busca los datos y actualiza
     useEffect(() => { 
         if (id){
             const searchContact = store.contactList.find( item => item.id == id)
